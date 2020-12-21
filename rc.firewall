@@ -1,0 +1,18 @@
+#!/bin/sh
+
+iptables -F
+iptables -t nat -F
+
+#iptables -t nat -A POSTROUTING -j SNAT -o eth0 --to 202.38.81.201
+iptables -t nat -A POSTROUTING -j SNAT -o eno1 --to 202.38.81.201
+
+iptables -P FORWARD  ACCEPT
+iptables -A FORWARD -j DROP -p udp --dport 135:139
+iptables -A FORWARD -j DROP -p tcp --dport 135:139
+iptables -A FORWARD -j DROP -p tcp --dport 445
+
+iptables -A INPUT -j ACCEPT -i lo
+iptables -A INPUT -j ACCEPT -p icmp
+iptables -A INPUT -j ACCEPT -m state --state ESTABLISHED
+iptables -A INPUT -j ACCEPT -p tcp --dport 22 -s 202.38.81.128/25
+iptables -A INPUT -j DROP  

@@ -1,0 +1,47 @@
+#!/bin/bash
+ip link set eno1 up
+ip link set enp3s0 up
+
+# 这是对外的网卡IP地址和网关
+ip addr add 202.38.81.201/25 dev eno1
+ip route add 0/0 via 202.38.81.254
+
+# 这是对内的网卡IP地址和静态路由
+ip addr add 10.140.2.1/24 dev enp3s0
+
+
+# 启用IP路由转发
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+# 加载连接跟踪模块，设置最大连接数为400*8=3200万
+modprobe nf_conntrack hashsize=4000000
+modprobe nf_conntrack_ipv4
+modprobe nf_conntrack_ftp
+modprobe iptable_nat
+modprobe ip_nat_ftp
+modprobe nf_conntrack_pptp
+
+# 调整默认的超时时间
+cd /proc/sys/net/netfilter
+echo 1 > nf_conntrack_acct 
+echo 60 > nf_conntrack_generic_timeout
+echo 10 > nf_conntrack_icmp_timeout
+echo 10 > nf_conntrack_tcp_timeout_close_wait
+echo 900 > nf_conntrack_tcp_timeout_established
+echo 10 > nf_conntrack_tcp_timeout_fin_wait
+echo 10 > nf_conntrack_tcp_timeout_last_ack
+echo 10 > nf_conntrack_tcp_timeout_syn_recv
+echo 10 > nf_conntrack_tcp_timeout_syn_sent
+echo 10 > nf_conntrack_tcp_timeout_time_wait
+
+/etc/rc.d/rc.firewall
+
+/etc/rc.d/rc.port
+
+/usr/src/traffic/iftrafficd &
+
+/usr/sbin/conntrack -U | wc
+
+screen -d -m /usr/src/natlog/run  &
+
+

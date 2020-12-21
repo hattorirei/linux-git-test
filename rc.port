@@ -1,0 +1,97 @@
+#10.140.2.1 先研院出口服务器
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 20180 -j DNAT --to-destination 10.140.2.1:80
+iptables -t nat -A POSTROUTING -d 10.140.2.1 -p tcp --dport 80 -j SNAT --to 10.140.2.1
+#10.140.2.5 先研院DELL服务器
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 5443 -j DNAT --to-destination 10.140.2.5:443
+iptables -t nat -A POSTROUTING -d 10.140.2.5 -p tcp --dport 443 -j SNAT --to 10.140.2.1
+#10.140.2.7 一网通办页面
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 80 -j DNAT --to-destination 10.140.2.7:80
+iptables -t nat -A POSTROUTING -d 10.140.2.7 -p tcp --dport 80 -j SNAT --to 10.140.2.1
+#10.140.2.8 3B3000双路服务器06
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 2208 -j DNAT --to-destination 10.140.2.8:22
+iptables -t nat -A POSTROUTING -d 10.140.2.8 -p tcp --dport 22 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 8008 -j DNAT --to-destination 10.140.2.8:80
+iptables -t nat -A POSTROUTING -d 10.140.2.8 -p tcp --dport 80 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 8443 -j DNAT --to-destination 10.140.2.8:443
+iptables -t nat -A POSTROUTING -d 10.140.2.8 -p tcp --dport 443 -j SNAT --to 10.140.2.1
+#10.140.2.9 3B3000双路服务器03
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 2209 -j DNAT --to-destination 10.140.2.9:22
+iptables -t nat -A POSTROUTING -d 10.140.2.9 -p tcp --dport 22 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 8009 -j DNAT --to-destination 10.140.2.9:80
+iptables -t nat -A POSTROUTING -d 10.140.2.9 -p tcp --dport 80 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 9443 -j DNAT --to-destination 10.140.2.9:443
+iptables -t nat -A POSTROUTING -d 10.140.2.9 -p tcp --dport 443 -j SNAT --to 10.140.2.1
+#10.140.2.10 3B3000双路服务器04
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 2110 -j DNAT --to-destination 10.140.2.10:21
+iptables -t nat -A POSTROUTING -d 10.140.2.10 -p tcp --dport 21 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 2210 -j DNAT --to-destination 10.140.2.10:22
+iptables -t nat -A POSTROUTING -d 10.140.2.10 -p tcp --dport 22 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 13306 -j DNAT --to-destination 10.140.2.10:3306
+iptables -t nat -A POSTROUTING -d 10.140.2.10 -p tcp --dport 3306 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 16379 -j DNAT --to-destination 10.140.2.10:6379
+iptables -t nat -A POSTROUTING -d 10.140.2.10 -p tcp --dport 6379 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 38080 -j DNAT --to-destination 10.140.2.10:8080
+iptables -t nat -A POSTROUTING -d 10.140.2.10 -p tcp --dport 8080 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 38089 -j DNAT --to-destination 10.140.2.10:8089
+iptables -t nat -A POSTROUTING -d 10.140.2.10 -p tcp --dport 8089 -j SNAT --to 10.140.2.1
+#10.140.2.15 科大先研院Dell服务器
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 15443 -j DNAT --to-destination 10.140.2.15:443
+iptables -t nat -A POSTROUTING -d 10.140.2.15 -p tcp --dport 443 -j SNAT --to 10.140.2.1
+#10.140.2.16 科大先研院Dell服务器
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 16443 -j DNAT --to-destination 10.140.2.16:443
+iptables -t nat -A POSTROUTING -d 10.140.2.16 -p tcp --dport 443 -j SNAT --to 10.140.2.1
+#10.140.2.17 2.16 虚拟机
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 2217 -j DNAT --to-destination 10.140.2.17:22
+iptables -t nat -A POSTROUTING -d 10.140.2.17 -p tcp --dport 22 -j SNAT --to 10.140.2.1
+#10.140.2.18 科大先研院Dell服务器
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 18443 -j DNAT --to-destination 10.140.2.18:443
+iptables -t nat -A POSTROUTING -d 10.140.2.18 -p tcp --dport 443 -j SNAT --to 10.140.2.1
+#10.140.2.19 vcenter
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 443 -j DNAT --to-destination 10.140.2.19:443
+iptables -t nat -A POSTROUTING -d 10.140.2.19 -p tcp --dport 443 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 902 -j DNAT --to-destination 10.140.2.19:902
+iptables -t nat -A POSTROUTING -d 10.140.2.19 -p tcp --dport 902 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 19201 -j DNAT --to-destination 10.140.2.19:8443
+iptables -t nat -A POSTROUTING -d 10.140.2.19 -p tcp --dport 8443 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 19202 -j DNAT --to-destination 10.140.2.19:9443
+iptables -t nat -A POSTROUTING -d 10.140.2.19 -p tcp --dport 9443 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 19203 -j DNAT --to-destination 10.140.2.19:10080
+iptables -t nat -A POSTROUTING -d 10.140.2.19 -p tcp --dport 10080 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 19204 -j DNAT --to-destination 10.140.2.19:10443
+iptables -t nat -A POSTROUTING -d 10.140.2.19 -p tcp --dport 10443 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 5480 -j DNAT --to-destination 10.140.2.19:5480
+iptables -t nat -A POSTROUTING -d 10.140.2.19 -p tcp --dport 5480 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 1922 -j DNAT --to-destination 10.140.2.19:22
+iptables -t nat -A POSTROUTING -d 10.140.2.19 -p tcp --dport 22 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 903 -j DNAT --to-destination 10.140.2.19:903
+iptables -t nat -A POSTROUTING -d 10.140.2.19 -p tcp --dport 903 -j SNAT --to 10.140.2.1
+#10.140.2.22 2.5 虚拟机
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 13389 -j DNAT --to-destination 10.140.2.22:3389
+iptables -t nat -A POSTROUTING -d 10.140.2.22 -p tcp --dport 3389 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 18080 -j DNAT --to-destination 10.140.2.22:8080
+iptables -t nat -A POSTROUTING -d 10.140.2.22 -p tcp --dport 8080 -j SNAT --to 10.140.2.1
+#10.140.2.101 3A4000台式机(赵善驰)
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 22101 -j DNAT --to-destination 10.140.2.101:22
+iptables -t nat -A POSTROUTING -d 10.140.2.101 -p tcp --dport 22 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 10180 -j DNAT --to-destination 10.140.2.101:80
+iptables -t nat -A POSTROUTING -d 10.140.2.101 -p tcp --dport 80 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 44301 -j DNAT --to-destination 10.140.2.101:443
+iptables -t nat -A POSTROUTING -d 10.140.2.101 -p tcp --dport 443 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 58080 -j DNAT --to-destination 10.140.2.101:8080
+iptables -t nat -A POSTROUTING -d 10.140.2.101 -p tcp --dport 8080 -j SNAT --to 10.140.2.1
+#10.140.2.102 3A4000台式机(汪永好)
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 22102 -j DNAT --to-destination 10.140.2.102:22
+iptables -t nat -A POSTROUTING -d 10.140.2.102 -p tcp --dport 22 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 30003 -j DNAT --to-destination 10.140.2.102:30003
+iptables -t nat -A POSTROUTING -d 10.140.2.102 -p tcp --dport 30003 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 28443 -j DNAT --to-destination 10.140.2.102:8443
+iptables -t nat -A POSTROUTING -d 10.140.2.102 -p tcp --dport 8443 -j SNAT --to 10.140.2.1
+#10.140.2.107 同方3A4000台式机(汪永好)
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 22107 -j DNAT --to-destination 10.140.2.107:22
+iptables -t nat -A POSTROUTING -d 10.140.2.107 -p tcp --dport 22 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 10780 -j DNAT --to-destination 10.140.2.107:80
+iptables -t nat -A POSTROUTING -d 10.140.2.107 -p tcp --dport 80 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 44307 -j DNAT --to-destination 10.140.2.107:443
+iptables -t nat -A POSTROUTING -d 10.140.2.102 -p tcp --dport 443 -j SNAT --to 10.140.2.1
+iptables -t nat -A PREROUTING -d 202.38.81.201 -p tcp --dport 58880 -j DNAT --to-destination 10.140.2.107:8080
+iptables -t nat -A POSTROUTING -d 10.140.2.107 -p tcp --dport 8080 -j SNAT --to 10.140.2.1
